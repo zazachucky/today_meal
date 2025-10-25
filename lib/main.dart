@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'presentation/screen/splash_screen.dart';
 import 'presentation/screen/main_screen.dart';
+import 'core/services/auth_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 테스트용 사용자 데이터 초기화
+  await AuthService.initializeTestUsers();
+
   runApp(const MyApp());
 }
 

@@ -1,18 +1,49 @@
 import 'package:flutter/material.dart';
-import '../widget/custom/image_scroll_widget.dart';
-import '../widget/custom/search_widget.dart';
-import '../widget/custom/nutrition_input_widget.dart';
+import 'home_tab_screen.dart';
+import 'news_tab_screen.dart';
+import 'user_tab_screen.dart';
 import 'calendar_screen.dart';
 
-/// 메인 화면
-class MainScreen extends StatelessWidget {
+/// 메인 화면 - 하단 탭바 포함
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const HomeTabScreen(),
+    const NewsTabScreen(),
+    const UserTabScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Today Meal'),
+        title: GestureDetector(
+          onTap: () {
+            setState(() {
+              _currentIndex = 0; // 홈 탭으로 이동
+            });
+          },
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.restaurant,
+                color: Colors.white,
+                size: 28,
+              ),
+              SizedBox(width: 8),
+              Text('Today Meal'),
+            ],
+          ),
+        ),
         backgroundColor: Colors.orange,
         foregroundColor: Colors.white,
         actions: [
@@ -30,65 +61,30 @@ class MainScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const HomeTab(),
-    );
-  }
-}
-
-/// 홈 탭
-class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // 화면 이미지 2개 로딩 스크롤
-          const ImageScrollWidget(),
-          const SizedBox(height: 24),
-
-          // 검색창 만들기
-          const SearchWidget(),
-          const SizedBox(height: 24),
-
-          // 오늘 하루 섭취량 영양소 입력
-          const NutritionInputWidget(),
-          const SizedBox(height: 24),
-
-          // 달력 기능 카드
-          _buildCalendarCard(context),
-          const SizedBox(height: 24),
-
-          // 기존 아이콘과 텍스트는 하단으로 이동
-          Center(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.restaurant,
-                  size: 80,
-                  color: Colors.orange,
-                ),
-                SizedBox(height: 20),
-                Text(
-                  '오늘의 맛있는 식사',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  '어떤 음식을 드시고 싶으신가요?',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.newspaper),
+            label: '뉴스',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '사용자',
           ),
         ],
       ),
