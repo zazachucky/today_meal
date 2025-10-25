@@ -194,8 +194,8 @@ flutter build ios --release
 ## 📞 연락처
 
 - **프로젝트 링크**: [https://github.com/your-username/today_meal](https://github.com/your-username/today_meal)
-- **이메일**: your-email@example.com
-- **프로젝트 설명**: [https://github.com/your-username/today_meal#readme](https://github.com/your-username/today_meal#readme)
+- **이메일**: zazachucky@naver.com
+- **프로젝트 설명**: [https://github.com/zazachucky/today_meal#readme](https://github.com/zazachucky/today_meal#readme)
 
 ---
 
