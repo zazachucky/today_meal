@@ -14,7 +14,7 @@ class _ImageScrollWidgetState extends State<ImageScrollWidget> {
 
   // 샘플 이미지 URL들 (실제 앱에서는 API에서 가져올 수 있음)
   final List<String> _imageUrls = [
-    'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop',
     'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop',
   ];
 
