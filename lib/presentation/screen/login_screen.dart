@@ -49,7 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
           );
 
           if (mounted) {
-            Navigator.of(context).pop(); // 로그인 성공 시 이전 화면으로 돌아가기
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              '/main',
+              (route) => false,
+            );
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('로그인되었습니다!'),
@@ -108,7 +111,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          '/main',
+          (route) => false,
+        );
+        return false;
+      },
+      child: Scaffold(
       appBar: AppBar(
         title: const Text('로그인'),
         backgroundColor: Colors.orange,
@@ -240,7 +251,10 @@ class _LoginScreenState extends State<LoginScreen> {
               // 게스트로 계속하기
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/main',
+                    (route) => false,
+                  );
                 },
                 child: Text(
                   '게스트로 계속하기',
@@ -253,6 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ),
+      ),
       ),
     );
   }
