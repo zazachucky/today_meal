@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'presentation/screen/splash_screen.dart';
+import 'presentation/screen/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,30 +9,56 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Today Meal',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const InitialScreen(),
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/main': (context) => const MainScreen(),
+      },
+    );
+  }
+}
+
+/// 초기 아이콘 화면 - 1초 후 SplashScreen으로 이동
+class InitialScreen extends StatefulWidget {
+  const InitialScreen({super.key});
+
+  @override
+  State<InitialScreen> createState() => _InitialScreenState();
+}
+
+class _InitialScreenState extends State<InitialScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateToSplash();
+  }
+
+  Future<void> _navigateToSplash() async {
+    await Future.delayed(const Duration(seconds: 1));
+    if (mounted) {
+      Navigator.of(context).pushReplacementNamed('/splash');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      backgroundColor: Colors.orange,
+      body: Center(
+        child: Icon(
+          Icons.restaurant,
+          size: 100,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }
