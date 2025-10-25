@@ -18,15 +18,11 @@ lib/
 │       └── search_screen.dart
 ├── domain/                # 도메인 레이어
 │   ├── entities/          # 비즈니스 엔티티
-│   │   ├── food.dart
-│   │   ├── nutrition.dart
-│   │   └── disease.dart
+│   │   ├── foodinfo.dart
 │   ├── repositories/      # 리포지토리 인터페이스
 │   │   ├── food_repository.dart
-│   │   └── nutrition_repository.dart
 │   └── usecases/          # 비즈니스 로직
-│       ├── get_food_recommendations.dart
-│       └── search_nutrition_info.dart
+│       ├── food_usecase.dart
 ├── data/                  # 데이터 레이어
 │   ├── datasources/       # 데이터 소스
 │   │   ├── local/
@@ -35,10 +31,8 @@ lib/
 │   │       └── rest_service.dart
 │   ├── models/            # 데이터 모델
 │   │   ├── food_model.dart
-│   │   └── nutrition_model.dart
 │   └── repositories/      # 리포지토리 구현
 │       ├── food_repository_impl.dart
-│       └── nutrition_repository_impl.dart
 └── core/                  # 공통 기능
     ├── constants/
     ├── errors/
