@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/services/nutrition_analysis_service.dart';
+import '../common/nutrition_risk_alert_dialog.dart';
 
 /// 오늘 하루 섭취량 영양소 입력 위젯
 class NutritionInputWidget extends StatefulWidget {
@@ -18,6 +20,8 @@ class _NutritionInputWidgetState extends State<NutritionInputWidget> {
     'sugar': TextEditingController(),
   };
 
+  double _currentProgress = 0.0;
+
   @override
   void dispose() {
     _controllers.values.forEach((controller) => controller.dispose());
@@ -32,6 +36,16 @@ class _NutritionInputWidgetState extends State<NutritionInputWidget> {
       nutritionData[key] = value;
     });
 
+    // 영양소 분석 및 위험요소 확인
+    final risks = NutritionAnalysisService.analyzeNutritionRisks(nutritionData);
+    final overallProgress =
+        NutritionAnalysisService.calculateOverallProgress(nutritionData);
+
+    // 현재 진행률 업데이트
+    setState(() {
+      _currentProgress = overallProgress;
+    });
+
     // 저장 완료 스낵바 표시
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -41,8 +55,22 @@ class _NutritionInputWidgetState extends State<NutritionInputWidget> {
       ),
     );
 
+    // 영양소 위험요소 알럿 표시
+    _showNutritionRiskAlert(risks, overallProgress);
+
     // 입력 필드 초기화
     _controllers.values.forEach((controller) => controller.clear());
+  }
+
+  void _showNutritionRiskAlert(
+      List<NutritionRisk> risks, double overallProgress) {
+    showDialog(
+      context: context,
+      builder: (context) => NutritionRiskAlertDialog(
+        risks: risks,
+        overallProgress: overallProgress,
+      ),
+    );
   }
 
   @override
@@ -121,19 +149,19 @@ class _NutritionInputWidgetState extends State<NutritionInputWidget> {
           ),
           child: Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.trending_up,
-                color: Colors.orange,
+                color: _getProgressColor(_currentProgress),
                 size: 24,
               ),
               const SizedBox(width: 12),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  '오늘의 목표 달성률: 75%',
+                  '오늘의 목표 달성률: ${_currentProgress.toStringAsFixed(1)}%',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.orange,
+                    color: _getProgressColor(_currentProgress),
                   ),
                 ),
               ),
@@ -146,10 +174,10 @@ class _NutritionInputWidgetState extends State<NutritionInputWidget> {
                 ),
                 child: FractionallySizedBox(
                   alignment: Alignment.centerLeft,
-                  widthFactor: 0.75,
+                  widthFactor: (_currentProgress / 100).clamp(0.0, 1.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: _getProgressColor(_currentProgress),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -225,5 +253,11 @@ class _NutritionInputWidgetState extends State<NutritionInputWidget> {
         ),
       ],
     );
+  }
+
+  Color _getProgressColor(double progress) {
+    if (progress >= 80) return Colors.green;
+    if (progress >= 60) return Colors.orange;
+    return Colors.red;
   }
 }
