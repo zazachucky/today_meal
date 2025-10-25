@@ -39,3 +39,8 @@ class AuthFailure extends Failure {
 class PermissionFailure extends Failure {
   const PermissionFailure(super.message);
 }
+
+/// 데이터를 찾을 수 없음 실패
+class NotFoundFailure extends Failure {
+  const NotFoundFailure(super.message);
+}
