@@ -1,16 +1,216 @@
-# today_meal
+# 🍽️ Today Meal
+> **영양 성분 기반 건강 관리 앱**
 
-A new Flutter project.
+현대 사회에서 건강에 대한 관심이 높아지는 시대에, 특정 질병이나 건강 상태에 따라 섭취해야 할 음식과 피해야 할 영양 성분을 쉽게 찾을 수 있도록 돕는 Flutter 앱입니다.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📱 주요 기능
 
-A few resources to get you started if this is your first Flutter project:
+### 🔍 **스마트 음식 검색**
+- **태그 기반 검색**: 샐러드, 과일, 단백질 등 카테고리별 빠른 검색
+- **영양소 정보 제공**: 각 음식의 상세 영양 성분 정보
+- **건강 효과 안내**: 음식의 건강상 이점과 조리 팁 제공
+- **추천 시스템**: 검색 결과가 없을 때 관련 태그 추천
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 📊 **영양소 분석 및 관리**
+- **일일 영양소 입력**: 칼로리, 단백질, 탄수화물, 지방, 식이섬유, 당분 섭취량 기록
+- **실시간 분석**: 입력된 영양소를 즉시 분석하여 위험요소 식별
+- **목표 달성률**: 한국인 영양소 섭취기준(2020) 기반 달성률 계산
+- **개인화된 알림**: 부족하거나 과다한 영양소에 대한 맞춤형 권장사항
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 📅 **달력 기반 추적**
+- **월력 표시**: 일일 영양소 달성률을 달력으로 시각화
+- **색상 코딩**: 영양소 상태를 직관적인 색상으로 표시
+  - 🟢 우수 (80% 이상)
+  - 🔵 양호 (60-80%)
+  - 🟠 보통 (40-60%)
+  - 🔴 부족 (40% 미만)
+- **일일 상세 정보**: 선택한 날짜의 영양소 섭취 현황 상세 확인
+
+### 🎯 **건강 상태별 맞춤 추천**
+- **질병별 음식 추천**: 당뇨병, 심장병, 고혈압 등 질병별 추천 음식
+- **영양소 위험 관리**: 특정 질병에 해로운 영양소 경고
+- **개인화된 식단**: 사용자의 건강 상태에 맞는 맞춤형 식단 제안
+
+---
+
+## 🏗️ 기술 스택
+
+### **프론트엔드**
+- **Flutter 3.0+** - 크로스 플랫폼 모바일 개발
+- **Dart** - 프로그래밍 언어
+- **Material Design 3** - 현대적이고 직관적인 UI/UX
+
+### **아키텍처**
+- **Clean Architecture** - 유지보수성과 확장성을 고려한 아키텍처
+- **Bloc Pattern** - 상태 관리 및 비즈니스 로직 분리
+- **Dependency Injection** - GetIt + Injectable을 통한 의존성 관리
+
+### **데이터 관리**
+- **SharedPreferences** - 로컬 데이터 저장
+- **Hive** - NoSQL 데이터베이스
+- **Dio + Retrofit** - 네트워크 통신 및 API 연동
+
+### **개발 도구**
+- **JSON Serialization** - 데이터 직렬화/역직렬화
+- **Code Generation** - 자동 코드 생성
+- **Unit Testing** - 테스트 코드 작성
+
+---
+
+## 📱 화면 구성
+
+### **1. 스플래시 화면**
+- 앱 로딩 및 브랜딩
+- 1초 후 메인 화면으로 자동 이동
+
+### **2. 메인 화면**
+- **음식 검색**: 빠른 검색 및 태그 기반 검색
+- **영양소 입력**: 일일 영양소 섭취량 기록
+- **달력 접근**: 영양소 달성률 달력으로 이동
+- **추천 음식**: 건강한 음식 이미지 스크롤
+
+### **3. 음식 상세 화면**
+- **영양 정보**: 상세한 영양 성분 표시
+- **재료 목록**: 주요 재료 및 조리법
+- **건강 효과**: 음식의 건강상 이점
+- **조리 팁**: 실용적인 조리 가이드
+
+### **4. 달력 화면**
+- **월력 표시**: 영양소 달성률 시각화
+- **일일 상세**: 선택한 날짜의 상세 정보
+- **위험요소 알림**: 영양소 부족/과다 경고
+
+---
+
+## 🎨 UI/UX 특징
+
+### **직관적인 디자인**
+- **색상 시스템**: 건강을 연상시키는 주황색 계열
+- **카드 기반 레이아웃**: 정보를 명확하게 구분
+- **반응형 디자인**: 다양한 화면 크기 지원
+
+### **사용자 경험**
+- **원터치 접근**: 주요 기능에 빠른 접근
+- **시각적 피드백**: 영양소 상태를 색상으로 직관적 표시
+- **오프라인 지원**: 기본 기능 오프라인에서도 사용 가능
+
+---
+
+## 📊 데이터 기준
+
+### **영양소 권장량**
+- **한국인 영양소 섭취기준(2020)** 기반
+- **성인 남성 기준** 일일 권장량
+- **칼로리**: 2,000kcal
+- **단백질**: 65g
+- **탄수화물**: 300g
+- **지방**: 60g
+- **식이섬유**: 25g
+- **당분**: 50g 이하
+
+### **위험 임계값**
+- **부족 경고**: 권장량의 50% 미만
+- **과다 경고**: 권장량의 150% 초과
+- **실시간 분석**: 입력 즉시 위험요소 식별
+
+---
+
+## 🚀 설치 및 실행
+
+### **필요 조건**
+- Flutter SDK 3.0 이상
+- Dart SDK 3.0 이상
+- Android Studio / VS Code
+- Android/iOS 시뮬레이터 또는 실제 기기
+
+### **설치 방법**
+```bash
+# 저장소 클론
+git clone https://github.com/your-username/today_meal.git
+
+# 프로젝트 디렉토리로 이동
+cd today_meal
+
+# 의존성 설치
+flutter pub get
+
+# 앱 실행
+flutter run
+```
+
+### **빌드**
+```bash
+# Android APK 빌드
+flutter build apk --release
+
+# iOS 빌드
+flutter build ios --release
+```
+
+---
+
+## 📈 향후 계획
+
+### **단기 목표**
+- [ ] 실제 음식 데이터 API 연동
+- [ ] 사용자 프로필 설정 기능
+- [ ] 주간/월간 리포트 생성
+- [ ] 알림 및 리마인더 기능
+
+### **중기 목표**
+- [ ] AI 기반 개인화 추천
+- [ ] 레시피 데이터베이스 구축
+- [ ] 소셜 기능 (커뮤니티, 챌린지)
+- [ ] 의료진 연동 기능
+
+### **장기 목표**
+- [ ] 웨어러블 기기 연동
+- [ ] IoT 기기 연동 (스마트 저울 등)
+- [ ] 의료 데이터 연동
+- [ ] 글로벌 서비스 확장
+
+---
+
+## 🤝 기여하기
+
+프로젝트에 기여하고 싶으시다면:
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
+
+---
+
+## 📞 연락처
+
+- **프로젝트 링크**: [https://github.com/your-username/today_meal](https://github.com/your-username/today_meal)
+- **이메일**: your-email@example.com
+- **프로젝트 설명**: [https://github.com/your-username/today_meal#readme](https://github.com/your-username/today_meal#readme)
+
+---
+
+## 🙏 감사의 말
+
+- Flutter 팀에게 감사드립니다
+- Clean Architecture 패턴을 제안해주신 Robert C. Martin에게 감사드립니다
+- 모든 오픈소스 기여자들에게 감사드립니다
+
+---
+
+<div align="center">
+
+**⭐ 이 프로젝트가 도움이 되었다면 Star를 눌러주세요! ⭐**
+
+Made with ❤️ by Today Meal Team
+
+</div>
